@@ -3696,26 +3696,32 @@ std::vector<nvinfer1::PluginField> loadFields(string_map<std::vector<uint8_t>>& 
             case ::ONNX_NAMESPACE::AttributeProto::FLOAT:
                 std::tie(data, size) = copyField(attrs.get<float>(fieldName), fieldName, fieldData);
                 type = nvinfer1::PluginFieldType::kFLOAT32;
+                size /= sizeof(float);
                 break;
             case ::ONNX_NAMESPACE::AttributeProto::INT:
                 std::tie(data, size) = copyField(attrs.get<int>(fieldName), fieldName, fieldData);
                 type = nvinfer1::PluginFieldType::kINT32;
+                size /= sizeof(int);
                 break;
             case ::ONNX_NAMESPACE::AttributeProto::STRING:
                 std::tie(data, size) = copyField(attrs.get<std::string>(fieldName), fieldName, fieldData);
                 type = nvinfer1::PluginFieldType::kCHAR;
+                size /= sizeof(char);
                 break;
             case ::ONNX_NAMESPACE::AttributeProto::FLOATS:
                 std::tie(data, size) = copyField(attrs.get<std::vector<float>>(fieldName), fieldName, fieldData);
                 type = nvinfer1::PluginFieldType::kFLOAT32;
+                size /= sizeof(float);
                 break;
             case ::ONNX_NAMESPACE::AttributeProto::INTS:
                 std::tie(data, size) = copyField(attrs.get<std::vector<int>>(fieldName), fieldName, fieldData);
                 type = nvinfer1::PluginFieldType::kINT32;
+                size /= sizeof(int);
                 break;
             case ::ONNX_NAMESPACE::AttributeProto::STRINGS:
                 std::tie(data, size) = copyField(attrs.get<std::vector<std::string>>(fieldName), fieldName, fieldData);
                 type = nvinfer1::PluginFieldType::kCHAR;
+                size /= sizeof(char);
                 break;
             case ::ONNX_NAMESPACE::AttributeProto::TENSOR:
             {
