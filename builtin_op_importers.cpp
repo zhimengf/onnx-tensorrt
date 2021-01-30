@@ -3686,6 +3686,11 @@ std::vector<nvinfer1::PluginField> loadFields(string_map<std::vector<uint8_t>>& 
     std::vector<nvinfer1::PluginField> fields{};
     for (int i = 0; i < fieldNames->nbFields; ++i)
     {
+        // In case this attribute is an optional attribute in ONNX node
+        // The default value for this optional attribute will be set
+        // in pluginCreater::createPlugin() method
+        if (!attrs.count(fieldNames->fields[i].name))
+            continue;
         // Name must be retrieved from the map so that it is alive for long enough.
         const std::string& fieldName = fieldData.emplace(fieldNames->fields[i].name, std::vector<uint8_t>{}).first->first;
         const void* data{nullptr};
